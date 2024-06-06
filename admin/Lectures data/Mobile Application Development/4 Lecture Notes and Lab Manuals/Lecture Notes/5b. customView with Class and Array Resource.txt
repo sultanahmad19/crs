@@ -1,0 +1,66 @@
+package com.example.android.customviewapplication;
+
+import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    String[] itemName;
+    int [] imageId;
+    String [] itemDescription;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TypedArray icons = getResources().obtainTypedArray(R.array.image_id);
+
+        int length = icons.length();
+        imageId = new int[length];
+        for (int i = 0; i < length; i++) {
+            imageId[i] = icons.getResourceId(i, 0);
+        }
+        //Recycles the TypedArray, to be re-used by a later caller.
+        //After calling this function you must not ever touch the typed array again.
+        icons.recycle();
+
+        itemName = getResources().getStringArray(R.array.animal_names);
+        itemDescription = getResources().getStringArray(R.array.animal_description);
+
+        final ArrayList<ListItem> listItems = new ArrayList<ListItem>();
+
+        for(int i=0; i<length;i++) {
+            listItems.add(new ListItem(imageId[i],itemName[i],itemDescription[i]));
+        }
+        // Create an {@link ListAdapter}, whose data source is a list of {@link ListItem}s. The
+        // adapter knows how to create list items for each item in the list.
+
+        ListAdapter adapter = new ListAdapter(this, listItems);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_list.xml layout file.
+        ListView listView = (ListView) findViewById(R.id.list1);
+
+        // Make the {@link ListView} use the {@link ListAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link ListItem} in the list.
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, ""+ listItems.get(position).getItemName(),
+                        Toast.LENGTH_SHORT).show();;
+            }
+        });
+    }
+}

@@ -1,0 +1,54 @@
+package com.example.android.adapterapplication;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    String[] sports;
+    Spinner spinner;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.spinner_layout);
+
+        sports = getResources().getStringArray(R.array.sports_array);
+
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item, sports);
+
+        spinner = (Spinner) findViewById(R.id.spinner1);
+
+        spinner.setAdapter(adapter);
+
+        setItemClickListener();
+    }
+
+    public void setItemClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "You Clicked: "  + sports[position],
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+    }
+
+    public void displaySelectedSport(View view){
+//        int getSelectedItemPosition ()
+//      returns int Position (starting at 0), or INVALID_POSITION if there is nothing selected.
+
+        int selected_sport = spinner.getSelectedItemPosition();
+        Toast.makeText(MainActivity.this, "Selected Sport: " + sports [selected_sport], Toast.LENGTH_SHORT).show();
+    }
+}

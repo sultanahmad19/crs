@@ -1,0 +1,45 @@
+package com.example.android.adapterapplication;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    String[] months;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.listview_layout);
+
+        months = getResources().getStringArray(R.array.months);
+
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, months);
+
+        ListView listView = (ListView)findViewById(R.id.listView1);
+
+        listView.setAdapter(adapter);
+
+//        void setOnItemClickListener (AdapterView.OnItemClickListener listener)
+//        public static interface AdapterView.OnItemClickListener
+
+//        void onItemClick (AdapterView<?> parent, View view,int position,long id)
+        //Parameters
+//        parent 	AdapterView: The AdapterView where the click happened.
+//        view 	View: The view within the AdapterView that was clicked (this will be a view provided by the adapter)
+//        position 	int: The position of the view in the adapter.
+//        id 	long: The row id of the item that was clicked.
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(MainActivity.this, months[position], Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}

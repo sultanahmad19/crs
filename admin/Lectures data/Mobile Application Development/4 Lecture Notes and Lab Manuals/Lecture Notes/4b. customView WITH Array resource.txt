@@ -1,0 +1,84 @@
+package com.example.android.customviewapplication;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+
+public class MainActivity extends AppCompatActivity {
+    String[] itemName
+            ={
+            "Bird",
+            "Cat",
+            "Cow",
+            "Dog",
+            "Donkey",
+            "Duck",
+            "Elephant",
+            "Fish",
+            "Horse",
+            "Mouse",
+            "Owl",
+            "Penguin",
+            "Rabbit",
+            "Sparrow"
+    };
+
+    int [] imageId
+            = {
+            R.drawable.bird,
+            R.drawable.cat,
+            R.drawable.cow,
+            R.drawable.dog,
+            R.drawable.donkey,
+            R.drawable.duck,
+            R.drawable.elephant,
+            R.drawable.fish,
+            R.drawable.horse,
+            R.drawable.mouse,
+            R.drawable.owl,
+            R.drawable.penguin,
+            R.drawable.rabbit,
+            R.drawable.sparrow
+    };
+
+    String [] itemDescription
+            = {
+            "Birds have feathers, wings, lay eggs and are warm blooded",
+            "Cat is a small, typically furry, carnivorous mammal",
+            "Cows have stocky, rectangular bodies with four legs",
+            "Dogs are domesticated mammals, not natural wild animals",
+            "A donkey is a mammal of the Equidae family",
+            "Ducks are birds in the family Anatidae",
+            "Elephants are the largest living land mammals",
+            "Fish are vertebrates which live in water and respire with gills",
+            "Horses are mammals of the family Equidae",
+            "A mouse is a rodent, which is a kind of mammal",
+            "Owls are birds in the order Strigiformes",
+            "Penguins are sea-birds in the family Spheniscidae",
+            "Rabbits are mammals of the order Lagomorpha",
+            "A sparrow is a member of the genus Passer"
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        CustomListAdapter adapter = new CustomListAdapter(this, imageId, itemName, itemDescription);
+
+        ListView list = (ListView)findViewById(R.id.list);
+        list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String SelectedItem= itemName[position];
+                Toast.makeText(getApplicationContext(), SelectedItem, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}

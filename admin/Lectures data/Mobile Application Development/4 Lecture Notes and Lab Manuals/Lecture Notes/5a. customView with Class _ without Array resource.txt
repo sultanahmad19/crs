@@ -1,0 +1,64 @@
+package com.example.android.customviewapplication;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    String[] itemName;
+    int [] imageId;
+    String [] itemDescription;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final ArrayList<ListItem> listItems = new ArrayList<ListItem>();
+
+        listItems.add(new ListItem(R.drawable.bird, "Bird", "Birds have feathers, wings, lay eggs and are warm blooded"));
+        listItems.add(new ListItem(R.drawable.cat, "Cat", "Cat is a small, typically furry, carnivorous mammal"));
+        listItems.add(new ListItem(R.drawable.cow, "Cow", "Cows have stocky, rectangular bodies with four legs"));
+        listItems.add(new ListItem(R.drawable.dog, "Dog",  "Dogs are domesticated mammals, not natural wild animals"));
+        listItems.add(new ListItem(R.drawable.donkey, "Donkey", "A donkey is a mammal of the Equidae family"));
+        listItems.add(new ListItem(R.drawable.duck, "Duck", "Ducks are birds in the family Anatidae"));
+        listItems.add(new ListItem(R.drawable.elephant, "Elephant",  "Elephants are the largest living land mammals"));
+        listItems.add(new ListItem(R.drawable.fish, "Fish","Fish are vertebrates which live in water and respire with gills"));
+        listItems.add(new ListItem(R.drawable.horse, "Horse", "Horses are mammals of the family Equidae"));
+        listItems.add(new ListItem(R.drawable.mouse, "Mouse", "A mouse is a rodent, which is a kind of mammal"));
+        listItems.add(new ListItem(R.drawable.owl, "Owl", "Owls are birds in the order Strigiformes"));
+        listItems.add(new ListItem(R.drawable.penguin, "Penguin", "Penguins are sea-birds in the family Spheniscidae"));
+        listItems.add(new ListItem(R.drawable.rabbit, "Rabbit", "Rabbits are mammals of the order Lagomorpha"));
+        listItems.add(new ListItem(R.drawable.sparrow, "Sparrow", "A sparrow is a member of the genus Passer"));
+
+
+        // Create an {@link ListAdapter}, whose data source is a list of {@link ListItem}s. The
+        // adapter knows how to create list items for each item in the list.
+
+        ListAdapter adapter = new ListAdapter(this, listItems);
+
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_list.xml layout file.
+        ListView listView = (ListView) findViewById(R.id.list1);
+
+        // Make the {@link ListView} use the {@link ListAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link ListItem} in the list.
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, ""+ listItems.get(position).getItemName(),
+                        Toast.LENGTH_SHORT).show();;
+            }
+        });
+    }
+}

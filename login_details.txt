@@ -1,0 +1,13 @@
+--------admin------
+
+
+username: mujtabasaleemawan12@gmail.com
+password: 123
+
+
+
+-----------user------
+
+
+username: user01@gmail.com
+password: 123

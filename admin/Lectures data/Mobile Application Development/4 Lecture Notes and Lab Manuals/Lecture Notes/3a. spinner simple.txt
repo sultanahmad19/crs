@@ -1,0 +1,25 @@
+package com.example.android.adapterapplication;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+public class MainActivity extends AppCompatActivity {
+    
+    String[] sports;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.spinner_layout);
+
+        sports = getResources().getStringArray(R.array.sports_array);
+
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item, sports);
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner1);
+
+        spinner.setAdapter(adapter);
+    }
+}
